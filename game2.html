@@ -16,7 +16,24 @@
 		}
 		
 		</script>
-		
+		<script>
+		window.addEventListener("resize", adjustH5Position);
+		function adjustH5Position() {
+		const body = document.body;
+		const refHeight = 926;
+		const scale = body.clientHeight / refHeight;
+		const baseTopCell = -94;
+		const baseTopCellV2 = -40;
+
+		document.querySelectorAll(".card-cell h5").forEach(el => {
+			el.style.top = `${baseTopCell * scale}px`;
+		});
+		document.querySelectorAll(".card-cellv2 h5").forEach(el => {
+			el.style.top = `${baseTopCellV2 * scale}px`;
+		});
+		}
+		window.addEventListener("load", adjustH5Position);
+		</script>
     </head>
     <body>
         <div id="left" class="side-bar">
