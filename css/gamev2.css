@@ -127,6 +127,7 @@ body {
 .card-cell,
 .card-cellv2 {
   width: 20%;
+  height: 75%;
   background-color: #2a2a2a;
   border: solid var(--accent) 0.05rem;
   text-align: center;
@@ -149,13 +150,13 @@ body {
 /* Teksty pod kartami */
 h5 {
   position: relative;
-  top: -120px;
+  top: -90px;
   font-size: 0.7rem;
 }
 
 .card-cellv2 h5 {
   position: relative;
-  top: -50px;
+  top: -40px;
 }
 
 /* Wiersz z przyciskami */
@@ -227,4 +228,57 @@ input[type="button"]:hover {
 .side-bar #list-of-players,
 .side-bar #catchword-history {
   flex: 1;
+}
+
+/* Upewnij się, że obrazki w kartach zachowują rozmiar i mają przejścia */
+.card-cell img,
+.card-cellv2 img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: filter 0.22s ease, transform 0.15s ease, box-shadow 0.22s ease;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Dla zwykłych card-cell: przy hover podświetlam tylko obrazek (nie tło całej karty) */
+.card-cell:hover img {
+  filter: brightness(0.78);         /* lekkie przyciemnienie/tonowanie */
+  transform: scale(1.03);           /* delikatne powiększenie obrazka */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45) inset; /* subtelny wewnętrzny cień */
+  z-index: 2;
+}
+
+/* Nadpisanie tła hover dla .card-cell: nie chcemy zmieniać całego tła karty,
+   jedynie pozostawić transform/box-shadow (te reguły są już zadeklarowane wyżej).
+   Ustawienie background-color: transparent zapobiega "podświetleniu całej karty". */
+.card-cell:hover {
+  background-color: transparent;
+}
+
+/* Dla card-cellv2: zaokrąglone krawędzie kontenera i zaokrąglone podświetlenie zdjęcia */
+.card-cellv2 {
+  overflow: hidden;       /* aby nic nie wystawało poza zaokrąglone rogi */
+  border-radius: 12px;    /* dopasuj wartość do zaokrąglenia obrazków */
+}
+
+/* Zastosuj zaokrąglenie do obrazów w v2 oraz efekt świetlny (podświetlenie) */
+.card-cellv2 img {
+  border-radius: 12px; /* taki sam jak .card-cellv2, żeby efekt był spójny */
+}
+
+/* Przy hover na card-cellv2 podświetlamy tylko obraz (zaokrąglony glow + rozjaśnienie) */
+.card-cellv2:hover img {
+  filter: brightness(1.05);
+  transform: scale(1.02);
+  box-shadow: 0 0 18px var(--accent), 0 6px 18px rgba(0,0,0,0.45) inset;
+  z-index: 2;
+}
+
+/* Opcjonalnie: jeśli chcesz aby podpis (h5) nie przysłaniał obrazka po hover,
+   upewnij się, że ma niższy z-index niż img (nie zmieniam tego domyślnie,
+   ale dodaję bezpieczny zapis): */
+.card-cell h5,
+.card-cellv2 h5 {
+  z-index: 1;
+  position: relative; /* pozostawiam relative — tak jak miałeś */
 }
