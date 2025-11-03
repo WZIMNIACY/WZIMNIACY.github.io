@@ -1,0 +1,145 @@
+<!-- File: lobby.html -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wzimniacy — Lobby</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <div id="top-left-design">
+    <div id="game-title">Wzimniacy</div>
+  </div>
+
+  <div id="menu" class="lobby">
+    <div id="menu-title">Lobby</div>
+
+    <div class="lobby-info">
+      <div class="info-row">
+        <label>ID lobby:</label>
+        <div class="info-value" id="display-lobby-id">—</div>
+        <button class="tiny" id="copy-id" title="Kopiuj ID">Kopiuj</button>
+      </div>
+      <div class="info-row">
+        <label>Hasło:</label>
+        <div class="info-value" id="display-password">—</div>
+        <button class="tiny" id="regenerate" title="Wygeneruj nowe hasło">Nowe</button>
+      </div>
+    </div>
+
+    <div class="mode-section">
+      <label for="game-mode">Tryb gry (tylko host):</label>
+      <select id="game-mode" disabled>
+        <option value="classic">AI Master</option>
+        <option value="Ai-vs-human">AI vs human</option>
+      </select>
+      <div class="host-toggle">
+        <input type="checkbox" id="is-host">
+        <label for="is-host">Jestem hostem</label>
+      </div>
+    </div>
+
+    <div class="teams">
+      <div class="team team-blue">
+        <div class="team-title">Drużyna Niebieska</div>
+        <ul id="blue-list">
+          <!-- przykładowi gracze -->
+        </ul>
+        <button class="menu-option small" data-team="blue">Dołącz do Niebieskiej</button>
+      </div>
+
+      <div class="team team-red">
+        <div class="team-title">Drużyna Czerwona</div>
+        <ul id="red-list">
+          <!-- przykładowi gracze -->
+        </ul>
+        <button class="menu-option small" data-team="red">Dołącz do Czerwonej</button>
+      </div>
+    </div>
+
+    <div class="lobby-actions">
+      <a class="menu-option" href="main-menu.html">Opuszczam lobby</a>
+      <a class="menu-option" href="./game2.html">Start (tylko host)</a>
+    </div>
+  </div>
+
+  <script>
+    // --- palette and behaviour notes ---
+    // This page expects optionally a query param: ?lobby-id=XXXX
+    // If none provided, we generate one. Password is always auto-generated but can be regenerated.
+
+    function randomId(len=6){
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // exclude ambiguous
+      let s='';
+      for(let i=0;i<len;i++) s+=chars[Math.floor(Math.random()*chars.length)];
+      return s;
+    }
+    function randomPassword(len=6){
+      const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let s='';
+      for(let i=0;i<len;i++) s+=chars[Math.floor(Math.random()*chars.length)];
+      return s;
+    }
+
+    // read query param
+    const params = new URLSearchParams(location.search);
+    const providedId = params.get('lobby-id');
+    const lobbyId = providedId || randomId(6);
+    let password = randomPassword(6);
+
+    document.getElementById('display-lobby-id').textContent = lobbyId;
+    document.getElementById('display-password').textContent = password;
+
+    document.getElementById('regenerate').addEventListener('click', ()=>{
+      password = randomPassword(6);
+      document.getElementById('display-password').textContent = password;
+    });
+
+    document.getElementById('copy-id').addEventListener('click', async ()=>{
+      try{
+        await navigator.clipboard.writeText(lobbyId);
+        alert('ID skopiowane');
+      }catch(e){
+        prompt('Skopiuj ID' , lobbyId);
+      }
+    });
+
+    // Host toggle: enable mode select when checked
+    const isHostCheckbox = document.getElementById('is-host');
+    const modeSelect = document.getElementById('game-mode');
+    isHostCheckbox.addEventListener('change', ()=>{
+      modeSelect.disabled = !isHostCheckbox.checked;
+    });
+
+    // Teams behaviour: simple client-side add
+    function addToTeam(teamId, name){
+      const ul = document.getElementById(teamId+'-list');
+      const li = document.createElement('li');
+      li.textContent = name;
+      ul.appendChild(li);
+    }
+
+    // seed some demo players to show layout
+    addToTeam('blue', 'Gracz_A');
+    addToTeam('red', 'Gracz_B');
+
+    document.querySelectorAll('button[data-team]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const team = btn.getAttribute('data-team');
+        const name = prompt('Podaj nazwę gracza:', 'Ty');
+        if(!name) return;
+        addToTeam(team, name);
+      });
+    });
+
+    // optionally, if join-game forwarded lobby-id and password via GET, show them
+    const pwFromQS = params.get('password');
+    if(pwFromQS){
+      password = pwFromQS;
+      document.getElementById('display-password').textContent = password;
+    }
+  </script>
+</body>
+</html>

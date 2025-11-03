@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gra</title>
+        <link rel="stylesheet" href="./css/main-menu2.css">
+        <link rel="stylesheet" href="./css/gamev2.css">
+		
+		<script>
+		
+		function changeButton(b1)
+		{
+		if(b1.value=='X')
+				{b1.value='o';}
+		else
+				{b1.value='X';}
+		}
+		
+		</script>
+		
+    </head>
+    <body>
+        <div id="left" class="side-bar">
+            <div id="id" class="element">Id pokoju: (number)</div>
+            <div id="in-game-menu" class="element">Menu</div>
+            <div id="help" class="element">Pomoc</div>
+            <div id="list-of-players" class="element">Gracze:</div>
+        </div>
+        <div id="middle">
+            <div id="top">
+                <div id="blue" class="team">
+                    <div class="points">
+                        Punkty niebieskich: <span id="blue-points-num">0</span>
+                    </div>
+                    <div class="bar">
+                        <div class="filling"></div>
+                    </div>
+                </div>
+                <div id="turn">Aktualna tura: <span id="turn-num">1</span></div>
+                <div id="red" class="team">
+                    <div class="points">
+                        Punkty czerwonych: <span id="red-points-num">0</span>
+                    </div>
+                    <div class="bar">
+                        <div class="filling"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="cards-space"></div>
+				<div class="card-row">
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> 
+						<div class="card-cell-input-row">
+								<div class="button-cell"><input type="button" id="vote-button" value="o" onclick="changeButton(this)"></div>
+								<div class="button-cell"><input type="button" id="vote-button" value="o" onclick="changeButton(this)"></div>
+								<div class="button-cell"><input type="button" id="vote-button" value="o" onclick="changeButton(this)"></div>
+								<div class="button-cell"><input type="button" id="vote-button" value="o" onclick="changeButton(this)"></div>
+								<div class="button-cell"><input type="button" value="o"></div>
+						</div>
+					</div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+				</div>
+				<div class="card-row">
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+				</div>
+				<div class="card-row">
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+				</div>
+				<div class="card-row">
+					<div class="card-cellv2"><img src="./img/red_agent_ph2.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cellv2"><img src="./img/red_agent_ph2.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+				</div>
+				<div class="card-row">
+					<div class="card-cellv2"><img src="./img/Blue_agent_ph2.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cellv2"><img src="./img/Blue_agent_ph2.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cellv2"><img src="./img/assasin_ph2.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+					<div class="card-cell"><img src="./img/UNID_agent_ph.png" alt="Test_niezidentyfikowany agent">
+					<h5> Pseudonim </h5> </div>
+				</div>
+        </div>
+        <div id="right" class="side-bar">
+            <div id="catchword" class="element">Aktualne hasło: Hasło</div>
+            <div id="catchword-history" class="element">Historia:</div>
+			<div id="turn-buttons" class="element">
+				<div id="pass-turn" class="pass">Pomiń turę</div>
+				<div id="accept-turn" class="accept">Akceptuj wybory</div>	
+			</div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,61 @@
+:root{
+    --quit-game-button: rgb(124, 13, 13);
+    --start-game-button: rgb(14, 92, 14);
+    --join-game-button: rgb(2, 63, 2);
+    --menu-option-button-color: rgb(12, 150, 160);
+    --menu-text-color: white;
+    --body-color: rgb(20, 20, 20);
+}
+
+body{
+    margin: 0;
+    background-color: var(--body-color);
+}
+
+#top-left-design{
+    position: absolute;
+}
+
+#top-left-design #game-title{
+    z-index: 2;
+    margin: 1rem 0 3rem 2.5rem;
+    font-size: 5rem;
+}
+
+#menu-title{
+    margin-bottom: 2rem;
+    font-size: 4rem;
+    text-align: center;
+}
+
+#menu{
+    position: absolute;
+    top: 50%;               /* w pionie */
+    left: 50%;              /* w poziomie */
+    transform: translate(-50%, -50%); /* przesunięcie o połowę własnych wymiarów */
+    width: 20rem;
+    margin: 0 auto;
+}
+
+.menu-option{
+    width: 13rem;
+    margin: 0.5rem auto;
+    padding: 0.2rem 0;
+    background-color: var(--menu-option-button-color);
+    color: var(--menu-text-color);
+    font-size: 2rem;
+    text-align: center;
+    border-radius: 1rem;
+}
+
+#menu #create-game{
+    background-color: var(--start-game-button);
+}
+
+#menu #join-game{
+    background-color: var(--join-game-button);
+}
+
+#menu #quit-game{
+    background-color: var(--quit-game-button);
+}
