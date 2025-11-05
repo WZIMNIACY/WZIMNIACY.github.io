@@ -204,17 +204,10 @@ input[type="button"]:hover {
 
 #pass-turn {
   flex: 1;
+  flex-direction: column;
   background-color: #3e0711;
   border: solid var(--accent) 0.05rem;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-#accept-turn {
-  flex: 1;
-  background-color: #163236;
-  border: solid var(--accent) 0.05rem;
+  text-align: center;
   color: white;
   cursor: pointer;
   transition: background-color 0.2s;
