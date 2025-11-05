@@ -38,6 +38,54 @@
 		}
 		window.addEventListener("load", adjustH5Position);
 		</script>
+		<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Pobierz wszystkie elementy .card-cell (już po wczytaniu DOM)
+  const cells = document.querySelectorAll('.card-cell');
+
+  cells.forEach(cell => {
+    // Jeśli już mamy dodany indicator (np. podczas hot-reload), nie dodawaj ponownie
+    if (!cell.querySelector('.card-selected-indicator')) {
+      const indicator = document.createElement('div');
+      indicator.className = 'card-selected-indicator';
+      indicator.textContent = '✔'; // biały ptaszek
+      // upewnij się, że indicator będzie nad obrazkiem
+      indicator.style.zIndex = 5;
+      cell.appendChild(indicator);
+    }
+
+    // Kliknięcie na kartę: przełącz zaznaczenie, ale pomiń kliknięcia
+    // które pochodzą z przycisków wewnątrz (np. input[type="button"]).
+    cell.addEventListener('click', function (ev) {
+      const clickedInsideControls = !!ev.target.closest('.card-cell-input-row') ||
+                                    ev.target.tagName === 'INPUT' ||
+                                    ev.target.closest('input') ||
+                                    ev.target.closest('button');
+
+      if (clickedInsideControls) {
+        // jeśli kliknięcie było w przycisk głosowania — ignorujemy przełączanie zaznaczenia
+        return;
+      }
+
+      // przełączenie klasy selected (dodaje/usuwa) — CSS steruje widocznością znaczków
+      this.classList.toggle('selected');
+
+      // ---- alternatywne usuwanie/ukrywanie: jeśli wolisz usuwać DOM node zamiast klasy,
+      // możesz odkomentować poniższy fragment zamiast toggle:
+      // const ind = this.querySelector('.card-selected-indicator');
+      // if (this.classList.contains('selected')) {
+      //   // już zaznaczona -> odznaczamy
+      //   this.classList.remove('selected');
+      // } else {
+      //   this.classList.add('selected');
+      // }
+    });
+
+    // Dodatkowo: jeśli chcesz aby kliknięcie wewnątrz konkretnego input mogło
+    // dalej wykonać swoją normalną funkcję (np. changeButton), to nic więcej nie trzeba robić.
+  });
+});
+</script>
     </head>
     <body>
         <div id="left" class="side-bar">

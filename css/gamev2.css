@@ -285,3 +285,34 @@ input[type="button"]:hover {
   z-index: 1;
   position: relative; /* pozostawiam relative — tak jak miałeś */
 }
+
+/* Status zaznaczenia karty */
+.card-cell {
+  position: relative; /* potrzebne, żeby przycisk ustawił się wewnątrz */
+}
+
+/* Przycisk potwierdzenia */
+.card-selected-indicator {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 18px;
+  height: 18px;
+  background-color: #00cc55;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+  pointer-events: none; /* klikamy zawsze w kartę, nie w przycisk */
+  box-shadow: 0 0 5px rgba(0,255,150,0.7);
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+}
+
+/* Gdy karta zaznaczona – pokaż przycisk */
+.card-cell.selected .card-selected-indicator {
+  opacity: 1;
+}
