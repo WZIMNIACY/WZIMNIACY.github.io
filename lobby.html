@@ -22,11 +22,6 @@
         <div class="info-value" id="display-lobby-id">—</div>
         <button class="tiny" id="copy-id" title="Kopiuj ID">Kopiuj</button>
       </div>
-      <div class="info-row">
-        <label>Hasło:</label>
-        <div class="info-value" id="display-password">—</div>
-        <button class="tiny" id="regenerate" title="Wygeneruj nowe hasło">Nowe</button>
-      </div>
     </div>
 
     <div class="mode-section">
@@ -61,7 +56,8 @@
 
     <div class="lobby-actions">
       <div class="menu-option"><a href="./index.html">Opuszczam lobby</a></div>
-      <div class="menu-option"><a href="./game2.html">Start (tylko host)</a></div>
+      <!-- start-container: pusty na starcie, wypełniany JS gdy warunek spełniony -->
+      <div class="menu-option" id="start-container"></div>
     </div>
   </div>
 
@@ -76,26 +72,13 @@
       for(let i=0;i<len;i++) s+=chars[Math.floor(Math.random()*chars.length)];
       return s;
     }
-    function randomPassword(len=6){
-      const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      let s='';
-      for(let i=0;i<len;i++) s+=chars[Math.floor(Math.random()*chars.length)];
-      return s;
-    }
 
     // read query param
     const params = new URLSearchParams(location.search);
     const providedId = params.get('lobby-id');
     const lobbyId = providedId || randomId(6);
-    let password = randomPassword(6);
 
     document.getElementById('display-lobby-id').textContent = lobbyId;
-    document.getElementById('display-password').textContent = password;
-
-    document.getElementById('regenerate').addEventListener('click', ()=>{
-      password = randomPassword(6);
-      document.getElementById('display-password').textContent = password;
-    });
 
     document.getElementById('copy-id').addEventListener('click', async ()=>{
       try{
@@ -113,18 +96,56 @@
       modeSelect.disabled = !isHostCheckbox.checked;
     });
 
-    // Teams behaviour: simple client-side add
-    function addToTeam(teamId, name){
-      const ul = document.getElementById(teamId+'-list');
+    // ------------ Rozszerzona logika drużyn + host ---------------
+    // hostName trzyma nick aktualnego hosta (pierwszego dołączonego)
+    let hostName = null;
+
+    // funkcja ustawiająca oznaczenie hosta na elemencie <li>
+    function markHostElement(li) {
+      if (!li) return;
+      li.classList.add('host');
+      // nie nadpisujemy textContent aby nie usuwać innych elementów; zakładamy że li zawiera tylko tekst
+      // korona jest dodawana przez CSS ::after
+    }
+
+    // funkcja odświeżająca dostępność startu
+    function refreshStartAvailability() {
+      const blueCount = document.querySelectorAll("#blue-list li").length;
+      const redCount = document.querySelectorAll("#red-list li").length;
+      const container = document.getElementById("start-container");
+
+      // jeśli obie drużyny mają >=1 gracza — pokaż link Start
+      if (blueCount > 0 && redCount > 0) {
+        // jeżeli chcesz ograniczyć Start tylko dla hosta, tutaj możesz dodatkowo sprawdzić:
+        // if (currentUserIsHost) { ... } albo ukrywać link dla innych.
+        container.innerHTML = `<a href="./game2.html">Start</a>`;
+      } else {
+        container.innerHTML = `<span>Start (min. 1 gracz w każdej drużynie)</span>`;
+      }
+    }
+
+    // jednolita funkcja dodająca gracza do drużyny
+    function addToTeam(teamId, name) {
+      const ul = document.getElementById(teamId + '-list');
       const li = document.createElement('li');
       li.textContent = name;
       ul.appendChild(li);
+
+      // jeśli nie ma jeszcze hosta — pierwszy dołączony gracz staje się hostem
+      if (!hostName) {
+        hostName = name;
+        // oznacz tego li jako hosta: dodaj klasę (korona przez CSS)
+        markHostElement(li);
+      } else {
+        // jeśli hostName istnieje i to ten li jest hostem (przykład gdy seedujemy: host już ustawiony),
+        // upewnimy się, że tylko host ma klasę host
+        if (name === hostName) markHostElement(li);
+      }
+
+      refreshStartAvailability();
     }
 
-    // seed some demo players to show layout
-    addToTeam('blue', 'Gracz_A');
-    addToTeam('red', 'Gracz_B');
-
+    // podpinamy przyciski "Dołącz" — muszą być po deklaracji addToTeam
     document.querySelectorAll('button[data-team]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const team = btn.getAttribute('data-team');
@@ -134,12 +155,32 @@
       });
     });
 
+    // seed some demo players to show layout (pierwszy automatycznie zostanie hostem)
+    addToTeam('blue', 'Gracz_A');
+
     // optionally, if join-game forwarded lobby-id and password via GET, show them
     const pwFromQS = params.get('password');
     if(pwFromQS){
       password = pwFromQS;
       document.getElementById('display-password').textContent = password;
     }
+
+    // inicjalne sprawdzenie (na wypadek gdyby listy były wypełnione z innych źródeł)
+    // upewniamy się, że jeśli hostName istnieje, oznaczymy właściwy <li> (np. przy resecie DOM)
+    (function ensureHostMarked(){
+      if (!hostName) { refreshStartAvailability(); return; }
+      // znajdź li z tekstem hostName i oznacz go
+      const allLis = document.querySelectorAll('#blue-list li, #red-list li');
+      for (const li of allLis) {
+        if (li.textContent.trim() === hostName) {
+          markHostElement(li);
+        } else {
+          li.classList.remove('host');
+        }
+      }
+      refreshStartAvailability();
+    })();
+
   </script>
 </body>
 </html>

@@ -53,6 +53,34 @@ body {
   flex-direction: column;
 }
 
+#left #id,
+#left #in-game-menu,
+#left #help,
+#left #list-of-players span,
+#middle #top .team {
+  font-size: 1.2em;
+}
+
+#left #list-of-players{
+  display: flex;
+  flex-direction: column;
+}
+
+#left #list-of-players .team{
+  flex: 1;
+  border-top: solid 1px;
+}
+
+#left #list-of-players #red{
+  color: rgb(230, 80, 80);
+  background: linear-gradient(180deg, rgba(90, 10, 20, 0.40), rgba(90, 10, 20, 0.18));
+}
+
+#left #list-of-players #blue{
+  color: rgb(90, 210, 200);
+  background: linear-gradient(180deg, rgba(30, 70, 80, 0.35), rgba(30, 70, 80, 0.15));
+}
+
 /* Górny panel drużyn */
 #middle #top {
   width: 100%;
@@ -64,9 +92,10 @@ body {
 #middle #top .team {
   flex: 1;
   height: 100%;
+  display: flex;
+  flex-direction: column;
   border: solid var(--accent) 0.05rem;
   color: var(--text);
-  font-size: 1rem;
   background-color: var(--panel);
 }
 
@@ -79,9 +108,28 @@ body {
 }
 
 #middle #top .team .bar {
-  height: 10%;
+  width: 100%;
+  flex: 1;
   border-top: solid var(--accent) 0.05rem;
   background: rgba(255, 255, 255, 0.1);
+}
+
+#middle #top #blue .bar .filling{
+  background-color: var(--blue-team);
+}
+
+#middle #top #red .bar .filling{
+  background-color: var(--red-team);
+}
+
+#middle #top .team .bar .filling{
+  height: 100%;
+  width: 100%;
+  filter: brightness(0.8);
+}
+
+#middle #top .team .bar .filling:hover{
+  filter: brightness(2) brightness(1.4);
 }
 
 #middle #top .team,

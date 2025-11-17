@@ -114,3 +114,18 @@ body {
 
 /* placeholders */
 input::placeholder{color:#888}
+
+.host {
+    font-weight: 700;
+    position: relative;
+    padding-right: 1.4em;
+}
+
+.host::after {
+    content: "👑";
+    position: absolute;
+    right: 0.25em;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1em;
+}
