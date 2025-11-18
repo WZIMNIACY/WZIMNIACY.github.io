@@ -357,3 +357,16 @@ input[type="button"]:hover {
 .card-cell.selected .card-selected-indicator {
   opacity: 1;
 }
+
+a{
+  color: #fff;
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-family: 'Space Mono', cursive;
+  cursor: pointer;
+}
+
+a:hover{
+  color: var(--bg);
+}

@@ -1,0 +1,14 @@
+img{
+    width: 100vw;
+    height: 100vh;
+}
+
+#menu{
+    height: 44%;
+    width: 18%;
+    background-color: #1b1b1b;;
+    position: fixed;
+    top: 30%;
+    border-radius: 5%;
+    border: solid 1px var(--accent);
+}
