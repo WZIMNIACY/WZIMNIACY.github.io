@@ -71,12 +71,12 @@ body {
   border-top: solid 1px;
 }
 
-#left #list-of-players #red{
+#left #list-of-players #red-list{
   color: rgb(230, 80, 80);
   background: linear-gradient(180deg, rgba(90, 10, 20, 0.40), rgba(90, 10, 20, 0.18));
 }
 
-#left #list-of-players #blue{
+#left #list-of-players #blue-list{
   color: rgb(90, 210, 200);
   background: linear-gradient(180deg, rgba(30, 70, 80, 0.35), rgba(30, 70, 80, 0.15));
 }
@@ -99,11 +99,11 @@ body {
   background-color: var(--panel);
 }
 
-#middle #top #blue {
+#middle #top #blue-top {
   background-color: var(--blue-team);
 }
 
-#middle #top #red {
+#middle #top #red-top {
   background-color: var(--red-team);
 }
 
@@ -114,11 +114,11 @@ body {
   background: rgba(255, 255, 255, 0.1);
 }
 
-#middle #top #blue .bar .filling{
+#middle #top #blue-top .bar .filling{
   background-color: var(--blue-team);
 }
 
-#middle #top #red .bar .filling{
+#middle #top #red-top .bar .filling{
   background-color: var(--red-team);
 }
 
@@ -128,7 +128,7 @@ body {
   filter: brightness(0.8);
 }
 
-#middle #top .team .bar .filling:hover{
+#middle #top .team .bar .filling.force-effect {
   filter: brightness(2) brightness(1.4);
 }
 
@@ -369,4 +369,8 @@ a{
 
 a:hover{
   color: var(--bg);
+}
+
+input{
+
 }

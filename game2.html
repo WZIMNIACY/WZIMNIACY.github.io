@@ -14,93 +14,196 @@
 		function changeButton(b1)
 		{
 		if(b1.value=='X')
-				{b1.value='o';}
+			{b1.value='o';}
 		else
-				{b1.value='X';}
+			{b1.value='X';}
 		}
 		
 		</script>
 		<script>
-		window.addEventListener("resize", adjustH5Position);
-		function adjustH5Position() {
-		const body = document.body;
-		const refHeight = 926;
-		const scale = body.clientHeight / refHeight;
-		const baseTopCell = -40;
-		const baseTopCellV2 = -40;
+			window.addEventListener("resize", adjustH5Position);
+			function adjustH5Position() {
+			const body = document.body;
+			const refHeight = 926;
+			const scale = body.clientHeight / refHeight;
+			const baseTopCell = -40;
+			const baseTopCellV2 = -40;
 
-		document.querySelectorAll(".card-cell h5").forEach(el => {
-			el.style.top = `${baseTopCell * scale}px`;
-		});
-		document.querySelectorAll(".card-cellv2 h5").forEach(el => {
-			el.style.top = `${baseTopCellV2 * scale}px`;
-		});
-		}
-		window.addEventListener("load", adjustH5Position);
+			document.querySelectorAll(".card-cell h5").forEach(el => {
+				el.style.top = `${baseTopCell * scale}px`;
+			});
+			document.querySelectorAll(".card-cellv2 h5").forEach(el => {
+				el.style.top = `${baseTopCellV2 * scale}px`;
+			});
+			}
+			window.addEventListener("load", adjustH5Position);
 		</script>
 		<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Pobierz wszystkie elementy .card-cell (już po wczytaniu DOM)
-  const cells = document.querySelectorAll('.card-cell');
+			document.addEventListener('DOMContentLoaded', () => {
+			// Pobierz wszystkie elementy .card-cell (już po wczytaniu DOM)
+			const cells = document.querySelectorAll('.card-cell');
 
-  cells.forEach(cell => {
-    // Jeśli już mamy dodany indicator (np. podczas hot-reload), nie dodawaj ponownie
-    if (!cell.querySelector('.card-selected-indicator')) {
-      const indicator = document.createElement('div');
-      indicator.className = 'card-selected-indicator';
-      indicator.textContent = '✔'; // biały ptaszek
-      // upewnij się, że indicator będzie nad obrazkiem
-      indicator.style.zIndex = 5;
-      cell.appendChild(indicator);
-    }
+			cells.forEach(cell => {
+				// Jeśli już mamy dodany indicator (np. podczas hot-reload), nie dodawaj ponownie
+				if (!cell.querySelector('.card-selected-indicator')) {
+				const indicator = document.createElement('div');
+				indicator.className = 'card-selected-indicator';
+				indicator.textContent = '✔'; // biały ptaszek
+				// upewnij się, że indicator będzie nad obrazkiem
+				indicator.style.zIndex = 5;
+				cell.appendChild(indicator);
+				}
 
-    // Kliknięcie na kartę: przełącz zaznaczenie, ale pomiń kliknięcia
-    // które pochodzą z przycisków wewnątrz (np. input[type="button"]).
-    cell.addEventListener('click', function (ev) {
-      const clickedInsideControls = !!ev.target.closest('.card-cell-input-row') ||
-                                    ev.target.tagName === 'INPUT' ||
-                                    ev.target.closest('input') ||
-                                    ev.target.closest('button');
+				// Kliknięcie na kartę: przełącz zaznaczenie, ale pomiń kliknięcia
+				// które pochodzą z przycisków wewnątrz (np. input[type="button"]).
+				cell.addEventListener('click', function (ev) {
+				const clickedInsideControls = !!ev.target.closest('.card-cell-input-row') ||
+												ev.target.tagName === 'INPUT' ||
+												ev.target.closest('input') ||
+												ev.target.closest('button');
 
-      if (clickedInsideControls) {
-        // jeśli kliknięcie było w przycisk głosowania — ignorujemy przełączanie zaznaczenia
-        return;
-      }
+				if (clickedInsideControls) {
+					// jeśli kliknięcie było w przycisk głosowania — ignorujemy przełączanie zaznaczenia
+					return;
+				}
 
-      // przełączenie klasy selected (dodaje/usuwa) — CSS steruje widocznością znaczków
-      this.classList.toggle('selected');
+				// przełączenie klasy selected (dodaje/usuwa) — CSS steruje widocznością znaczków
+				this.classList.toggle('selected');
 
-      // ---- alternatywne usuwanie/ukrywanie: jeśli wolisz usuwać DOM node zamiast klasy,
-      // możesz odkomentować poniższy fragment zamiast toggle:
-      // const ind = this.querySelector('.card-selected-indicator');
-      // if (this.classList.contains('selected')) {
-      //   // już zaznaczona -> odznaczamy
-      //   this.classList.remove('selected');
-      // } else {
-      //   this.classList.add('selected');
-      // }
-    });
+				// ---- alternatywne usuwanie/ukrywanie: jeśli wolisz usuwać DOM node zamiast klasy,
+				// możesz odkomentować poniższy fragment zamiast toggle:
+				// const ind = this.querySelector('.card-selected-indicator');
+				// if (this.classList.contains('selected')) {
+				//   // już zaznaczona -> odznaczamy
+				//   this.classList.remove('selected');
+				// } else {
+				//   this.classList.add('selected');
+				// }
+				});
 
-    // Dodatkowo: jeśli chcesz aby kliknięcie wewnątrz konkretnego input mogło
-    // dalej wykonać swoją normalną funkcję (np. changeButton), to nic więcej nie trzeba robić.
-  });
-});
-</script>
+				// Dodatkowo: jeśli chcesz aby kliknięcie wewnątrz konkretnego input mogło
+				// dalej wykonać swoją normalną funkcję (np. changeButton), to nic więcej nie trzeba robić.
+			});
+			});
+		</script>
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+
+			// --- Selektory dla grup BLUE i RED ---
+			const blueSelectors = [
+				'#blue-top .bar .filling',
+				'#blue-list'
+			];
+			const redSelectors = [
+				'#red-top .bar .filling',
+				'#red-list'
+			];
+
+			// --- Pobranie checkboxa ---
+			const checkbox = document.getElementById('force-hover-checkbox');
+
+			if (!checkbox) {
+				console.warn("Brak elementu #force-hover-checkbox w HTML!");
+				return;
+			}
+
+			// --- Funkcja pomocnicza do pobierania elementów ---
+			function queryAll(selectors) {
+				const result = [];
+				selectors.forEach(sel => {
+					document.querySelectorAll(sel).forEach(n => result.push(n));
+				});
+				return result;
+			}
+
+			// --- Dodawanie lub zdejmowanie klasy ---
+			function applyForceEffectTo(nodes, add) {
+				nodes.forEach(el => {
+					if (add) el.classList.add('force-effect');
+					else el.classList.remove('force-effect');
+				});
+			}
+
+			// --- Główna funkcja aktualizująca efekty ---
+			function updateEffects() {
+				const checked = checkbox.checked;
+
+				const blueNodes = queryAll(blueSelectors);
+				const redNodes = queryAll(redSelectors);
+
+				if (checked) {
+					applyForceEffectTo(blueNodes, true);   // włącz dla blue
+					applyForceEffectTo(redNodes, false);  // wyłącz dla red
+				} else {
+					applyForceEffectTo(blueNodes, false);
+					applyForceEffectTo(redNodes, true);   // włącz dla red
+				}
+			}
+
+			// --- Reagowanie na zmianę checkboxa ---
+			checkbox.addEventListener("change", updateEffects);
+
+			// --- Wywołanie początkowe po załadowaniu DOM ---
+			updateEffects();
+
+			// --- Obserwator dla dynamicznie dodawanych elementów (opcjonalne) ---
+			const observer = new MutationObserver(updateEffects);
+			observer.observe(document.body, { childList: true, subtree: true });
+
+		});
+		</script>
     </head>
     <body>
+		<style>
+			/* Checkbox fixed w lewym górnym rogu */
+			#force-hover-toggle {
+				position: fixed;
+				top: 12px;
+				left: 12px;
+				z-index: 9999;
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				background: rgba(32, 32, 32, 0.9);
+				padding: 6px 8px;
+				border-radius: 6px;
+				box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+				font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+				font-size: 13px;
+			}
+
+			#force-hover-toggle input[type="checkbox"] {
+				width: 16px;
+				height: 16px;
+			}
+
+			/* Klasa dodawana programowo — odpowiada efektowi :hover z Twojego CSS #1 */
+			/* Uwaga: staramy się dokładnie odwzorować ten sam filtr. */
+			.force-effect {
+				filter: brightness(2) brightness(1.4);
+				/* jeśli chcesz, żeby ten efekt miał również przejście płynne, odkomentuj poniższe: */
+				/* transition: filter 150ms ease; */
+			}
+
+			/* (Opcjonalne) drobne style etykiety */
+			#force-hover-toggle label {
+				cursor: pointer;
+				user-select: none;
+			}
+		</style>
         <div id="left" class="side-bar">
             <div id="id" class="element">Id pokoju: (number)</div>
             <div id="in-game-menu" class="element"><a href="game2menu.html">Menu</a></div>
             <div id="help" class="element">Pomoc</div>
             <div id="list-of-players" class="element"><span>Gracze:</span><br>
-				<div id="blue" class="team">
+				<div id="blue-list" class="team">
 					Gracz1-b (ikonka)<br>
 					Gracz2-b (ikonka)<br>
 					Gracz3-b (ikonka)<br>
 					Gracz4-b (ikonka)<br>
 					Gracz5-b (ikonka)
 				</div>
-				<div id="red" class="team">
+				<div id="red-list" class="team">
 					Gracz1-c (ikonka)<br>
 					Gracz2-c (ikonka)<br>
 					Gracz3-c (ikonka)<br>
@@ -111,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div id="middle">
             <div id="top">
-                <div id="blue" class="team">
+                <div id="blue-top" class="team">
                     <div class="points">
                         Punkty niebieskich: <span id="blue-points-num">0</span>
                     </div>
@@ -120,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 <div id="turn">Aktualna tura: <span id="turn-num">1</span></div>
-                <div id="red" class="team">
+                <div id="red-top" class="team">
                     <div class="points">
                         Punkty czerwonych: <span id="red-points-num">0</span>
                     </div>
@@ -201,10 +304,16 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div id="right" class="side-bar">
             <div id="catchword" class="element">Aktualne hasło: Hasło</div>
-            <div id="catchword-history" class="element">Chat:</div>
+            <div id="catchword-history" class="element">Historia:</div>
+			<input type="checkbox" id="blue-turn">
 			<div id="turn-buttons" class="element">
 				<div id="pass-turn" class="pass"><p>Pomiń turę</p></div>
 			</div>
         </div>
+
+		<div id="force-hover-toggle" aria-hidden="false">
+			<input id="force-hover-checkbox" type="checkbox" />
+			<label for="force-hover-checkbox">Włącz efekt dla <strong>blue</strong></label>
+		</div>
     </body>
 </html>
