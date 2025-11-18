@@ -49,10 +49,13 @@
 				const indicator = document.createElement('div');
 				indicator.className = 'card-selected-indicator';
 				indicator.addEventListener("mouseenter", (event) =>{
-					event.target.classList.add('darken');
+					event.target.classList.add('hover-darken');
 				});
 				indicator.addEventListener("mouseleave", (event) => {
-					event.target.classList.remove('darken');
+					event.target.classList.remove('hover-darken');
+				});
+				indicator.addEventListener("onclick", (event) => {
+					event.target.classList.remove('pressed-effect');
 				});
 				indicator.textContent = '✔'; // biały ptaszek
 				// upewnij się, że indicator będzie nad obrazkiem
