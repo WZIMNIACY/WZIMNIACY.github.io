@@ -94,6 +94,7 @@
     const modeSelect = document.getElementById('game-mode');
     isHostCheckbox.addEventListener('change', ()=>{
       modeSelect.disabled = !isHostCheckbox.checked;
+      refreshStartAvailability();
     });
 
     // ------------ Rozszerzona logika drużyn + host ---------------
@@ -113,12 +114,18 @@
       const blueCount = document.querySelectorAll("#blue-list li").length;
       const redCount = document.querySelectorAll("#red-list li").length;
       const container = document.getElementById("start-container");
+      const isHostCheckbox = document.getElementById('is-host');
 
       // jeśli obie drużyny mają >=1 gracza — pokaż link Start
       if (blueCount > 0 && redCount > 0) {
         // jeżeli chcesz ograniczyć Start tylko dla hosta, tutaj możesz dodatkowo sprawdzić:
         // if (currentUserIsHost) { ... } albo ukrywać link dla innych.
-        container.innerHTML = `<a href="./game2.html">Start</a>`;
+        if(isHostCheckbox.checked){
+          container.innerHTML = `<a href="./game2.html">Start</a>`;
+        }
+        else{
+          container.innerHTML = `<span>Oczekiwanie na Hosta</span>`;
+        }
       } else {
         container.innerHTML = `<span>Start (min. 1 gracz w każdej drużynie)</span>`;
       }
