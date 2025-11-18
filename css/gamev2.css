@@ -265,6 +265,11 @@ input[type="button"]:hover {
   background-color: #6b0d20;
 }
 
+#pass-turn:active{
+  filter: brightness(0.65);
+  box-shadow: 0 0 10px rgba(107, 13, 32, 0.4);
+}
+
 #accept-turn:hover {
   background-color: #1d4a4f;
 }
@@ -347,7 +352,6 @@ input[type="button"]:hover {
   font-size: 14px;
   color: white;
   font-weight: bold;
-  pointer-events: auto; /* klikamy zawsze w kartę, nie w przycisk */
   box-shadow: 0 0 5px rgba(0,255,150,0.7);
   opacity: 0;
   transition: opacity 0.15s ease-in-out;
@@ -371,6 +375,16 @@ a:hover{
   color: var(--bg);
 }
 
-.darken{
-  filter: brightness(0.7);
+.hover-darken{
+  filter: brightness(0.85);
+  transform: scale(1.08);
+}
+
+.pressed-effect{
+  filter: brightness(0.65);
+  transform: scale(0.92);
+}
+
+.card-cell .pressed-effect{
+  box-shadow: 0 0 3px rgba(0,255,120,0.4);
 }
