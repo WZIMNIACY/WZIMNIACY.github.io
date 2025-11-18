@@ -347,7 +347,7 @@ input[type="button"]:hover {
   font-size: 14px;
   color: white;
   font-weight: bold;
-  pointer-events: none; /* klikamy zawsze w kartę, nie w przycisk */
+  pointer-events: auto; /* klikamy zawsze w kartę, nie w przycisk */
   box-shadow: 0 0 5px rgba(0,255,150,0.7);
   opacity: 0;
   transition: opacity 0.15s ease-in-out;
@@ -371,6 +371,6 @@ a:hover{
   color: var(--bg);
 }
 
-input{
-
+.darken{
+  filter: brightness(0.7);
 }
