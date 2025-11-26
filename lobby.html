@@ -110,8 +110,10 @@
     // Host toggle: enable mode select when checked
     const isHostCheckbox = document.getElementById('is-host');
     const modeSelect = document.getElementById('game-mode');
+    const aiSelect = document.getElementById('ai-model');
     isHostCheckbox.addEventListener('change', ()=>{
       modeSelect.disabled = !isHostCheckbox.checked;
+      aiSelect.disabled = !isHostCheckbox.checked;
       refreshStartAvailability();
     });
 
