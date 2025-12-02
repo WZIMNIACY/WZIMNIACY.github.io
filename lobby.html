@@ -35,10 +35,28 @@
         <label for="is-host">Jestem hostem</label>
       </div>
     </div>
+    <div style="display: flex; flex-direction: row;">
+      <div class="mode-section">
+        <label for="ai-model"> Tryb gry (tylko host):</label>
+        <select id="ai-model" disabled>
+          <option value="local">lokalny</option>
+          <option value="API">API</option>
+        </select>
+      </div>
+      <div style="flex: 1;"></div>
+    </div>
+    
+
+    <div width="100%" class="team no-team">
+      <div class="team-title" style="text-align: center;">Bez drużyny</div>
+        <ul id="neutral-list">
+          <!-- przykładowi gracze -->
+        </ul>
+      </div>
 
     <div class="teams">
       <div class="team team-blue">
-        <div class="team-title">Drużyna Niebieska</div>
+        <div class="team-title" style="text-align: center; display: flex; flex-direction: row;">Drużyna Niebieska<div style="flex: 1;"></div>1/5</div>
         <ul id="blue-list">
           <!-- przykładowi gracze -->
         </ul>
@@ -46,7 +64,7 @@
       </div>
 
       <div class="team team-red">
-        <div class="team-title">Drużyna Czerwona</div>
+        <div class="team-title" style="text-align: center; display: flex; flex-direction: row;">Drużyna Czerwona<div style="flex: 1;"></div>0/5</div>
         <ul id="red-list">
           <!-- przykładowi gracze -->
         </ul>
@@ -92,8 +110,10 @@
     // Host toggle: enable mode select when checked
     const isHostCheckbox = document.getElementById('is-host');
     const modeSelect = document.getElementById('game-mode');
+    const aiSelect = document.getElementById('ai-model');
     isHostCheckbox.addEventListener('change', ()=>{
       modeSelect.disabled = !isHostCheckbox.checked;
+      aiSelect.disabled = !isHostCheckbox.checked;
       refreshStartAvailability();
     });
 

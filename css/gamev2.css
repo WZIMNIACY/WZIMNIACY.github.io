@@ -388,3 +388,7 @@ a:hover{
 .card-cell .pressed-effect{
   box-shadow: 0 0 3px rgba(0,255,120,0.4);
 }
+
+#in-game-menu:hover{
+  
+}
