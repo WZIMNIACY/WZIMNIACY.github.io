@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Komunikat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    :root{
+  --bg: #1b1b1b;
+  --panel: #2c2c2c;
+  --accent: #00ffcc;
+  --muted: #ccc;
+}
+
+/* ===== GLOBAL ===== */
+body{
+  font-family: 'Space Mono', monospace;
+  background: #000 radial-gradient(circle at 50% 60%, #0a0a0a 0%, #000 70%);
+  color: var(--accent);
+  margin:0;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+/* ===== OVERLAY ===== */
+.retro-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(3px);
+  z-index:1;
+}
+
+/* ===== POPUP ===== */
+#retro-menu{
+  position:relative;
+  z-index:2;
+  background: var(--panel);
+  border:2px solid var(--accent);
+  width:min(600px, 90vw);
+  padding:1.2rem;
+  border-radius:6px;
+  box-shadow:
+      0 0 6px rgba(0,255,204,0.15),
+      inset 0 0 8px rgba(0,255,204,0.1);
+  animation: popup 0.45s ease-out;
+  overflow:hidden;
+}
+
+/* CRT SCAN LINES */
+.crt-scanlines{
+  pointer-events:none;
+  position:absolute;
+  inset:0;
+  opacity:0.20; /* było 0.5 */
+  background: repeating-linear-gradient(
+      to bottom,
+      rgba(0,255,204,0.015) 0px,
+      rgba(0,255,204,0.015) 2px,
+      rgba(0,0,0,0) 3px,
+      rgba(0,0,0,0) 4px
+  );
+  z-index:3;
+}
+
+/* ===== HEADER ===== */
+.retro-header{
+  position:relative;
+  text-align:center;
+  padding:0.3rem 0.2rem 0.6rem;
+  color:var(--accent);
+  letter-spacing:2px;
+  font-size:0.9rem;
+  text-shadow:0 0 4px var(--accent);
+  margin-bottom:1rem;
+  border-bottom:1px dashed rgba(0,255,204,0.35);
+}
+
+/* RETRO CORNERS */
+.corner{
+  position:absolute;
+  width:14px;
+  height:14px;
+  border:2px solid var(--accent);
+  filter:drop-shadow(0 0 2px var(--accent));
+}
+.tl{ top:-2px; left:-2px; border-right:none; border-bottom:none; }
+.tr{ top:-2px; right:-2px; border-left:none; border-bottom:none; }
+.bl{ bottom:-2px; left:-2px; border-right:none; border-top:none; }
+.br{ bottom:-2px; right:-2px; border-left:none; border-top:none; }
+
+/* ===== MESSAGE ===== */
+.retro-msg{
+  color: var(--muted);
+  font-size:0.95rem;
+  line-height:1.5;
+  padding:1rem 0.2rem;
+  text-shadow:0 0 2px rgba(0,255,204,0.1);
+}
+
+/* ===== BUTTONS ===== */
+.retro-controls{
+  display:flex;
+  justify-content:flex-end;
+  gap:1rem;
+  margin-top:1rem;
+}
+
+.btn-retro{
+  font-family:inherit;
+  padding:0.5rem 1rem;
+  border:2px solid var(--accent);
+  color:var(--accent);
+  cursor:pointer;
+  letter-spacing:1px;
+  border-radius:4px;
+  transition:0.2s;
+  background:rgba(0,255,204,0.05);
+  color:rgba(0,255,204,0.8);
+  text-shadow:0 0 2px rgba(0,255,204,0.25);
+  box-shadow:0 0 4px rgba(0,255,204,0.2);
+}
+
+.btn-retro:hover{
+  background:rgba(0,255,204,0.1);
+  transform:translateY(-1px);
+  box-shadow:0 0 6px rgba(0,255,204,0.25);
+}
+
+.btn-retro.secondary{
+  opacity:0.7;
+}
+.btn-retro.secondary:hover{
+  opacity:1;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes popup{
+  0%{ transform:scale(0.9) translateY(10px); opacity:0; }
+  70%{ transform:scale(1.05); opacity:1; }
+  100%{ transform:scale(1); }
+}
+  </style>
+</head>
+
+<body>
+
+<div class="retro-overlay"></div>
+
+<div id="retro-menu">
+  
+  <div class="crt-scanlines"></div>
+
+  <header class="retro-header">
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <h3>★ SYSTEM MESSAGE ★</h3>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+  </header>
+
+  <div class="retro-msg">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Fugit perspiciatis in pariatur, repellendus beatae
+        reprehenderit quasi nulla omnis.
+      </p>
+  </div>
+
+  <div class="retro-controls">
+      <button class="btn-retro primary">POTWIERDŹ</button>
+      <button class="btn-retro secondary">ANULUJ</button>
+  </div>
+
+</div>
+
+</body>
