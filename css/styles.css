@@ -110,7 +110,7 @@ body {
   /* WARSTWA 1: pasek */
   /* WARSTWA 2: tło */
   background:
-    linear-gradient(#1d4f70, #1d4f70) no-repeat,
+    linear-gradient(to right, #184d33, #216f9c) no-repeat,
     var(--bg);
 
   background-size: 0% 100%, 100% 100%;
