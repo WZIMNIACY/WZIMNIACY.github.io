@@ -172,6 +172,30 @@
       refreshStartAvailability();
     }
 
+    document.querySelectorAll(".mode-section select").forEach(select => {
+      select.addEventListener("change", () => {
+        const wrapper = select.closest(".mode-section");
+
+        // reset + start animacji
+        wrapper.classList.remove("loading");
+        void wrapper.offsetWidth;
+        wrapper.classList.add("loading");
+
+        select.disabled = true;
+
+        setTimeout(() => {
+          select.style.transition = "none";
+          wrapper.classList.remove("loading");
+
+          // przywracamy transition na przyszłość
+          void select.offsetWidth;
+          select.style.transition = "";
+
+          select.disabled = false;
+        }, 5000);
+      });
+    });
+
     // podpinamy przyciski "Dołącz" — muszą być po deklaracji addToTeam
     document.querySelectorAll('button[data-team]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
