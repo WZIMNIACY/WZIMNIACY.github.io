@@ -161,7 +161,7 @@
 
 		});
 		</script>
-    </head>
+	</head>
     <body>
 		<style>
 			/* Checkbox fixed w lewym górnym rogu */
@@ -311,7 +311,7 @@
 			</div>
         </div>
         <div id="right" class="side-bar">
-            <div id="catchword" class="element">Aktualne hasło: Hasło</div>
+            <div class="element">Aktualne hasło: <span id="catchword">Hasło</span></div>
             <div id="catchword-history" class="element">Historia:</div>
 			<div id="turn-buttons" class="element">
 				<div id="pass-turn" class="pass"><p>Pomiń turę</p></div>
@@ -323,4 +323,14 @@
 			<label for="force-hover-checkbox">Włącz efekt dla <strong>blue</strong></label>
 		</div>
     </body>
+	<script>
+		const catchword = document.getElementById("catchword");
+		const states = ["", ".", "..", "..."];
+		let index = 0;
+
+		setInterval(() => {
+			catchword.textContent = states[index];
+			index = (index + 1) % states.length;
+		}, 500);
+	</script>
 </html>
