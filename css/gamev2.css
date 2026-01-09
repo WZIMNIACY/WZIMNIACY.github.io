@@ -5,9 +5,14 @@
   --text: #ffffff;
   --blue-team: #163236;
   --red-team: #3e0711;
-  --bubble-bg: #2a3233;
-  --bubble-border: #4a5a5a;
-  --bubble-text: #e6f1f1;
+  
+  /* DOPASOWANE DO DYMKU */
+  --bubble-bg:     #253435; /* ciemny, przytłumiony teal - pasuje do panelu */
+  --bubble-border: #0f6b66; /* stonowana, ciemna wersja turkusu (obwódka) */
+  --bubble-text:   #dff7f4; /* lekko zmiękczona biel z cyan tonem */
+  --bubble-gradient-top: rgba(255,255,255,0.02); /* subtelna poświata od góry */
+  --bubble-gradient-bottom: rgba(0,0,0,0.06);
+  --bubble-glow: rgba(0,255,204,0.06); /* delikatny neonowy glow */
 }
 
 /* Utrzymujemy layout bez zmian */
@@ -392,49 +397,66 @@ a:hover{
   box-shadow: 0 0 3px rgba(0,255,120,0.4);
 }
 
-/* ===== DYMek ===== */
-#ai-message {
+/* DYMek: top-mounted arrow, subtle neon glow, gradient, border */
+#ai-message{
   position: fixed;
-  top: -150px; /* start poza ekranem */
+  top: -160px;         /* start poza widokiem (wyjeżdża z góry) */
   left: 12.5%;
-  z-index: 2;
+  z-index: 2000;
 
-  width: 220px;
+  width: 240px;
   padding: 0.8rem 1rem;
+  border-radius: 14px;
 
-  background: var(--bubble-bg);
+  background: linear-gradient(
+    180deg,
+    var(--bubble-gradient-top),
+    transparent 20%),
+    var(--bubble-bg);
   border: 1px solid var(--bubble-border);
-  border-radius: 16px;
-
   color: var(--bubble-text);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   line-height: 1.4;
 
   box-shadow:
-    0 6px 18px rgba(0, 0, 0, 0.4),
-    inset 0 1px 2px rgba(255,255,255,0.05);
+    0 10px 30px var(--bubble-glow),
+    0 6px 18px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.02);
 
   opacity: 0;
   pointer-events: none;
+  transform: translateY(-10px);
+  transition: transform 0.35s cubic-bezier(.22,.9,.34,1), opacity 0.25s;
 }
 
+/* STRZAŁKA u góry: dwa layery (obwódka + wypełnienie) */
 #ai-message::before {
+  /* outer (border) */
   content: "";
   position: absolute;
-  top: -8px;
-  left: 24px;
-
-  width: 0;
-  height: 0;
-
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid var(--bubble-bg);
+  top: -10px;
+  left: 28px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid var(--bubble-border);
+  filter: blur(0.0px);
+  pointer-events: none;
+}
+#ai-message::after {
+  /* inner (fill) */
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 29px;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 9px solid var(--bubble-bg);
+  pointer-events: none;
 }
 
-/* ===== ANIMACJA ===== */
+/* KLASA uruchamiająca animację (5s całkowicie, ~3s widoczna) */
 .show-message {
-  animation: slideMessage 5s ease-in-out forwards;
+  animation: slideMessage 5s cubic-bezier(.22,.9,.34,1) forwards;
 }
 
 @keyframes slideMessage {
