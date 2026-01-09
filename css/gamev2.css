@@ -5,6 +5,9 @@
   --text: #ffffff;
   --blue-team: #163236;
   --red-team: #3e0711;
+  --bubble-bg: #2a3233;
+  --bubble-border: #4a5a5a;
+  --bubble-text: #e6f1f1;
 }
 
 /* Utrzymujemy layout bez zmian */
@@ -389,6 +392,69 @@ a:hover{
   box-shadow: 0 0 3px rgba(0,255,120,0.4);
 }
 
-#in-game-menu:hover{
-  
+/* ===== DYMek ===== */
+#ai-message {
+  position: fixed;
+  top: -150px; /* start poza ekranem */
+  left: 12.5%;
+  z-index: 2;
+
+  width: 220px;
+  padding: 0.8rem 1rem;
+
+  background: var(--bubble-bg);
+  border: 1px solid var(--bubble-border);
+  border-radius: 16px;
+
+  color: var(--bubble-text);
+  font-size: 0.9rem;
+  line-height: 1.4;
+
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.4),
+    inset 0 1px 2px rgba(255,255,255,0.05);
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+#ai-message::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 24px;
+
+  width: 0;
+  height: 0;
+
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid var(--bubble-bg);
+}
+
+/* ===== ANIMACJA ===== */
+.show-message {
+  animation: slideMessage 5s ease-in-out forwards;
+}
+
+@keyframes slideMessage {
+  0% {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+
+  15% {
+    transform: translateY(180px);
+    opacity: 1;
+  }
+
+  75% {
+    transform: translateY(180px);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
 }
