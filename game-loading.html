@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ładowanie gry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styles.css">
+    <style>
+        #menu{
+            display: flex;
+            justify-content: center; /* poziomo */
+            align-items: center;     /* pionowo */
+        }
+        #potato {
+            aspect-ratio: 1/1;
+            width: 20%;
+            margin: auto;
+            animation: spin 1.5s linear infinite;
+        }
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Startowanie gry</h1>
+    <div id="menu">
+        <img src="./img/potato.png" id="potato">
+    </div>
+</body>
+
+</html>

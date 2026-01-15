@@ -322,6 +322,8 @@
 			<input id="force-hover-checkbox" type="checkbox" />
 			<label for="force-hover-checkbox">Włącz efekt dla <strong>blue</strong></label>
 		</div>
+
+		<div id="ai-message"></div>
     </body>
 	<script>
 		const catchword = document.getElementById("catchword");
@@ -332,5 +334,28 @@
 			catchword.textContent = states[index];
 			index = (index + 1) % states.length;
 		}, 500);
+	</script>
+	<script>
+	const bubble = document.getElementById("ai-message");
+	const messages = [
+		"Bardzo dobrze.",
+		"Może powinienem był dać lepszą podpowiedź…",
+		"Innym razem będzie lepiej",
+		"Ty idioto!",
+		"Dobrze się rozumiemy!"
+	];
+
+	function showRandomMessage() {
+		const randomIndex = Math.floor(Math.random() * messages.length);
+		bubble.textContent = messages[randomIndex];
+
+		bubble.classList.remove("show-message");
+		void bubble.offsetWidth; // reset animacji
+		bubble.classList.add("show-message");
+	}
+
+	// uruchom raz
+	showRandomMessage();
+	setInterval(showRandomMessage, 5000);
 	</script>
 </html>
