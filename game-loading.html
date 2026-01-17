@@ -10,14 +10,27 @@
     <style>
         #menu{
             display: flex;
+            flex-direction: column;
             justify-content: center; /* poziomo */
             align-items: center;     /* pionowo */
         }
         #potato {
             aspect-ratio: 1/1;
             width: 20%;
-            margin: auto;
+            margin: 2rem auto;
             animation: spin 1.5s linear infinite;
+        }
+        .blank-space{
+            flex: 1;
+        }
+        .menu-option {
+            --accent: #00ffcc;
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px;
+            border: 2px solid var(--accent);
+            border-radius: 5px;
+            transition: background-color 0.2s, transform 0.12s;
         }
         @keyframes spin {
             from {
@@ -34,6 +47,7 @@
     <h1>Startowanie gry</h1>
     <div id="menu">
         <img src="./img/potato.png" id="potato">
+        <div class="menu-option">Wróć do menu</div>
     </div>
 </body>
 
